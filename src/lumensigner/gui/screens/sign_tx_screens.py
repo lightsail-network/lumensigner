@@ -246,6 +246,7 @@ def build_tx_info_screens(te: TransactionEnvelope) -> List[GenericTxDetailsScree
 @dataclass
 class CreateAccountOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: CreateAccount = None
     tx_source: MuxedAccount = None
 
@@ -259,7 +260,7 @@ class CreateAccountOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -267,6 +268,7 @@ class CreateAccountOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class PaymentOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: Payment = None
     tx_source: MuxedAccount = None
 
@@ -281,7 +283,7 @@ class PaymentOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -289,6 +291,7 @@ class PaymentOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class PathPaymentStrictReceiveOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: PathPaymentStrictReceive = None
     tx_source: MuxedAccount = None
 
@@ -303,7 +306,7 @@ class PathPaymentStrictReceiveOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -311,6 +314,7 @@ class PathPaymentStrictReceiveOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class PathPaymentStrictSendOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: PathPaymentStrictSend = None
     tx_source: MuxedAccount = None
 
@@ -325,7 +329,7 @@ class PathPaymentStrictSendOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -333,6 +337,7 @@ class PathPaymentStrictSendOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class ManageSellOfferOperationScreenPage1(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: ManageSellOffer = None
     tx_source: MuxedAccount = None
 
@@ -355,7 +360,7 @@ class ManageSellOfferOperationScreenPage1(GenericTxDetailsScreen):
             Item(label="Buying", content=buy_asset_str, auto_trim_content=False),
         ]
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -363,6 +368,7 @@ class ManageSellOfferOperationScreenPage1(GenericTxDetailsScreen):
 @dataclass
 class ManageSellOfferOperationScreenPage2(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: ManageSellOffer = None
     tx_source: MuxedAccount = None
 
@@ -376,7 +382,7 @@ class ManageSellOfferOperationScreenPage2(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -384,6 +390,7 @@ class ManageSellOfferOperationScreenPage2(GenericTxDetailsScreen):
 @dataclass
 class ManageBuyOfferOperationScreenPage1(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: ManageBuyOffer = None
     tx_source: MuxedAccount = None
 
@@ -406,7 +413,7 @@ class ManageBuyOfferOperationScreenPage1(GenericTxDetailsScreen):
             Item(label="Selling", content=sell_asset_str, auto_trim_content=False),
         ]
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -414,6 +421,7 @@ class ManageBuyOfferOperationScreenPage1(GenericTxDetailsScreen):
 @dataclass
 class ManageBuyOfferOperationScreenPage2(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: ManageBuyOffer = None
     tx_source: MuxedAccount = None
 
@@ -427,7 +435,7 @@ class ManageBuyOfferOperationScreenPage2(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -435,6 +443,7 @@ class ManageBuyOfferOperationScreenPage2(GenericTxDetailsScreen):
 @dataclass
 class CreatePassiveSellOfferOperationScreenPage1(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: CreatePassiveSellOffer = None
     tx_source: MuxedAccount = None
 
@@ -450,7 +459,7 @@ class CreatePassiveSellOfferOperationScreenPage1(GenericTxDetailsScreen):
             Item(label="Buying", content=buy_asset_str, auto_trim_content=False),
         ]
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -458,6 +467,7 @@ class CreatePassiveSellOfferOperationScreenPage1(GenericTxDetailsScreen):
 @dataclass
 class CreatePassiveSellOfferOperationScreenPage2(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: CreatePassiveSellOffer = None
     tx_source: MuxedAccount = None
 
@@ -471,7 +481,7 @@ class CreatePassiveSellOfferOperationScreenPage2(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -479,6 +489,7 @@ class CreatePassiveSellOfferOperationScreenPage2(GenericTxDetailsScreen):
 @dataclass
 class ChangeTrustOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: ChangeTrust = None
     tx_source: MuxedAccount = None
 
@@ -503,7 +514,7 @@ class ChangeTrustOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -511,6 +522,7 @@ class ChangeTrustOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class AccountMergeOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: AccountMerge = None
     tx_source: MuxedAccount = None
 
@@ -525,7 +537,7 @@ class AccountMergeOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -533,6 +545,7 @@ class AccountMergeOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class AllowTrustOperationScreenPage1(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: AllowTrust = None
     tx_source: MuxedAccount = None
 
@@ -542,7 +555,7 @@ class AllowTrustOperationScreenPage1(GenericTxDetailsScreen):
             Item(label="Asset Code", content=self.op.asset_code),
             Item(label="Trustor", content=self.op.trustor),
         ]
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -550,6 +563,7 @@ class AllowTrustOperationScreenPage1(GenericTxDetailsScreen):
 @dataclass
 class AllowTrustOperationScreenPage2(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: AllowTrust = None
     tx_source: MuxedAccount = None
 
@@ -559,7 +573,7 @@ class AllowTrustOperationScreenPage2(GenericTxDetailsScreen):
         ]
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -567,6 +581,7 @@ class AllowTrustOperationScreenPage2(GenericTxDetailsScreen):
 @dataclass
 class ManageDataOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: ManageData = None
     tx_source: MuxedAccount = None
 
@@ -593,7 +608,7 @@ class ManageDataOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -601,6 +616,7 @@ class ManageDataOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class InflationOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: Inflation = None
     tx_source: MuxedAccount = None
 
@@ -611,7 +627,7 @@ class InflationOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -619,6 +635,7 @@ class InflationOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class BumpSequenceOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: BumpSequence = None
     tx_source: MuxedAccount = None
 
@@ -630,7 +647,7 @@ class BumpSequenceOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -638,6 +655,7 @@ class BumpSequenceOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class CreateClaimableBalanceOperationScreenPage1(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: CreateClaimableBalance = None
     tx_source: MuxedAccount = None
 
@@ -650,7 +668,7 @@ class CreateClaimableBalanceOperationScreenPage1(GenericTxDetailsScreen):
             ),
         ]
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -658,6 +676,7 @@ class CreateClaimableBalanceOperationScreenPage1(GenericTxDetailsScreen):
 @dataclass
 class CreateClaimableBalanceOperationScreenPage2(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: CreateClaimableBalance = None
     tx_source: MuxedAccount = None
 
@@ -669,7 +688,7 @@ class CreateClaimableBalanceOperationScreenPage2(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -677,6 +696,7 @@ class CreateClaimableBalanceOperationScreenPage2(GenericTxDetailsScreen):
 @dataclass
 class BeginSponsoringFutureReservesOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: BeginSponsoringFutureReserves = None
     tx_source: MuxedAccount = None
 
@@ -691,7 +711,7 @@ class BeginSponsoringFutureReservesOperationScreen(GenericTxDetailsScreen):
         ]
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -699,6 +719,7 @@ class BeginSponsoringFutureReservesOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class EndSponsoringFutureReservesOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: EndSponsoringFutureReserves = None
     tx_source: MuxedAccount = None
 
@@ -713,7 +734,7 @@ class EndSponsoringFutureReservesOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -721,6 +742,7 @@ class EndSponsoringFutureReservesOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class ClaimClaimableBalanceOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: ClaimClaimableBalance = None
     tx_source: MuxedAccount = None
 
@@ -731,7 +753,7 @@ class ClaimClaimableBalanceOperationScreen(GenericTxDetailsScreen):
         ]
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -739,6 +761,7 @@ class ClaimClaimableBalanceOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class RevokeSponsorshipOperationScreenPage1(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: RevokeSponsorship = None
     tx_source: MuxedAccount = None
 
@@ -817,7 +840,7 @@ class RevokeSponsorshipOperationScreenPage1(GenericTxDetailsScreen):
                 f"Unknown revoke sponsorship type: {self.op.revoke_sponsorship_type}"
             )
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -826,13 +849,14 @@ class RevokeSponsorshipOperationScreenPage1(GenericTxDetailsScreen):
 class RevokeSponsorshipOperationScreenPage2(GenericTxDetailsScreen):
     # Source only
     op_index: int = None
+    op_count: int = None
     op: RevokeSponsorship = None
     tx_source: MuxedAccount = None
 
     def __post_init__(self):
         items = []
         append_op_source_to_items(items, self.op.source, self.tx_source)
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -840,6 +864,7 @@ class RevokeSponsorshipOperationScreenPage2(GenericTxDetailsScreen):
 @dataclass
 class ClawbackOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: Clawback = None
     tx_source: MuxedAccount = None
 
@@ -852,7 +877,7 @@ class ClawbackOperationScreen(GenericTxDetailsScreen):
             Item(label="From", content=self.op.from_.account_id),
         ]
         append_op_source_to_items(items, self.op.source, self.tx_source)
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -860,6 +885,7 @@ class ClawbackOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class ClawbackClaimableBalanceOperationScreen(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: ClawbackClaimableBalance = None
     tx_source: MuxedAccount = None
 
@@ -869,7 +895,7 @@ class ClawbackClaimableBalanceOperationScreen(GenericTxDetailsScreen):
             Item(label="Balance ID", content=self.op.balance_id),
         ]
         append_op_source_to_items(items, self.op.source, self.tx_source)
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -877,6 +903,7 @@ class ClawbackClaimableBalanceOperationScreen(GenericTxDetailsScreen):
 @dataclass
 class SetTrustLineFlagsOperationScreenPage1(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: SetTrustLineFlags = None
     tx_source: MuxedAccount = None
 
@@ -886,7 +913,7 @@ class SetTrustLineFlagsOperationScreenPage1(GenericTxDetailsScreen):
             Item(label="Trustor", content=self.op.trustor),
             Item(label="Asset", content=format_asset(asset=self.op.asset)),
         ]
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -894,6 +921,7 @@ class SetTrustLineFlagsOperationScreenPage1(GenericTxDetailsScreen):
 @dataclass
 class SetTrustLineFlagsOperationScreenPage2(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: SetTrustLineFlags = None
     tx_source: MuxedAccount = None
 
@@ -932,7 +960,7 @@ class SetTrustLineFlagsOperationScreenPage2(GenericTxDetailsScreen):
             Item(label="Clear Flags", content=clear_flags_str, auto_trim_content=False),
             Item(label="Set Flags", content=set_flags_str, auto_trim_content=False),
         ]
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -941,13 +969,14 @@ class SetTrustLineFlagsOperationScreenPage2(GenericTxDetailsScreen):
 class SetTrustLineFlagsOperationScreenPage3(GenericTxDetailsScreen):
     # source only
     op_index: int = None
+    op_count: int = None
     op: SetTrustLineFlags = None
     tx_source: MuxedAccount = None
 
     def __post_init__(self):
         items = []
         append_op_source_to_items(items, self.op.source, self.tx_source)
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -955,6 +984,7 @@ class SetTrustLineFlagsOperationScreenPage3(GenericTxDetailsScreen):
 @dataclass
 class LiquidityPoolDepositOperationScreenPage1(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: LiquidityPoolDeposit = None
     tx_source: MuxedAccount = None
 
@@ -965,7 +995,7 @@ class LiquidityPoolDepositOperationScreenPage1(GenericTxDetailsScreen):
             Item(label="Max Amount A", content=format_number(self.op.max_amount_a)),
         ]
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -973,6 +1003,7 @@ class LiquidityPoolDepositOperationScreenPage1(GenericTxDetailsScreen):
 @dataclass
 class LiquidityPoolDepositOperationScreenPage2(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: LiquidityPoolDeposit = None
     tx_source: MuxedAccount = None
 
@@ -992,7 +1023,7 @@ class LiquidityPoolDepositOperationScreenPage2(GenericTxDetailsScreen):
         ]
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -1000,6 +1031,7 @@ class LiquidityPoolDepositOperationScreenPage2(GenericTxDetailsScreen):
 @dataclass
 class LiquidityPoolWithdrawOperationScreenPage1(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: LiquidityPoolWithdraw = None
     tx_source: MuxedAccount = None
 
@@ -1010,7 +1042,7 @@ class LiquidityPoolWithdrawOperationScreenPage1(GenericTxDetailsScreen):
             Item(label="Amount", content=format_number(self.op.amount)),
         ]
 
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -1018,6 +1050,7 @@ class LiquidityPoolWithdrawOperationScreenPage1(GenericTxDetailsScreen):
 @dataclass
 class LiquidityPoolWithdrawOperationScreenPage2(GenericTxDetailsScreen):
     op_index: int = None
+    op_count: int = None
     op: LiquidityPoolWithdraw = None
     tx_source: MuxedAccount = None
 
@@ -1028,13 +1061,13 @@ class LiquidityPoolWithdrawOperationScreenPage2(GenericTxDetailsScreen):
         ]
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
-        self.title = f"Operation {self.op_index + 1}"
+        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
 
 def build_set_options_screens(
-    op_index: int, op: SetOptions, tx_source: MuxedAccount
+    op_index: int, op_count: int, op: SetOptions, tx_source: MuxedAccount
 ) -> List[GenericTxDetailsScreen]:
     # TODO: refactor set flags and clear flags display
     screens = []
@@ -1114,7 +1147,7 @@ def build_set_options_screens(
         screen_items = items[i * item_size : (i + 1) * item_size]
         screens.append(
             GenericTxDetailsScreen(
-                title=f"Operation {op_index + 1}", items=screen_items
+                title=f"Operation {op_index + 1}/{op_count}", items=screen_items
             )
         )
     return screens
@@ -1207,8 +1240,9 @@ def build_transaction_screens(
         return [FeeBumpTransactionScreen(te=te)]
 
     tx = te.transaction
+    op_count = len(tx.operations)
 
-    if tx.operations is None or len(tx.operations) == 0:
+    if tx.operations is None or op_count == 0:
         raise ValueError("Transaction must have at least one operation")
 
     screens = []
@@ -1217,174 +1251,196 @@ def build_transaction_screens(
     for i, op in enumerate(tx.operations):
         if isinstance(op, CreateAccount):
             screens.append(
-                CreateAccountOperationScreen(op_index=i, op=op, tx_source=tx.source)
+                CreateAccountOperationScreen(
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
+                )
             )
         elif isinstance(op, Payment):
             screens.append(
-                PaymentOperationScreen(op_index=i, op=op, tx_source=tx.source)
+                PaymentOperationScreen(
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
+                )
             )
         elif isinstance(op, PathPaymentStrictReceive):
             screens.append(
                 PathPaymentStrictReceiveOperationScreen(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         elif isinstance(op, ManageSellOffer):
             screens.append(
                 ManageSellOfferOperationScreenPage1(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
             screens.append(
                 ManageSellOfferOperationScreenPage2(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         elif isinstance(op, CreatePassiveSellOffer):
             screens.append(
                 CreatePassiveSellOfferOperationScreenPage1(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
             screens.append(
                 CreatePassiveSellOfferOperationScreenPage2(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         elif isinstance(op, SetOptions):
-            screens.extend(build_set_options_screens(i, op, tx_source=tx.source))
+            screens.extend(
+                build_set_options_screens(i, op_count, op, tx_source=tx.source)
+            )
         elif isinstance(op, ChangeTrust):
             screens.append(
-                ChangeTrustOperationScreen(op_index=i, op=op, tx_source=tx.source)
+                ChangeTrustOperationScreen(
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
+                )
             )
         elif isinstance(op, AllowTrust):
             screens.append(
-                AllowTrustOperationScreenPage1(op_index=i, op=op, tx_source=tx.source)
+                AllowTrustOperationScreenPage1(
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
+                )
             )
             screens.append(
-                AllowTrustOperationScreenPage2(op_index=i, op=op, tx_source=tx.source)
+                AllowTrustOperationScreenPage2(
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
+                )
             )
         elif isinstance(op, AccountMerge):
             screens.append(
-                AccountMergeOperationScreen(op_index=i, op=op, tx_source=tx.source)
+                AccountMergeOperationScreen(
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
+                )
             )
         elif isinstance(op, Inflation):
             screens.append(
-                InflationOperationScreen(op_index=i, op=op, tx_source=tx.source)
+                InflationOperationScreen(
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
+                )
             )
         elif isinstance(op, ManageData):
             screens.append(
-                ManageDataOperationScreen(op_index=i, op=op, tx_source=tx.source)
+                ManageDataOperationScreen(
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
+                )
             )
         elif isinstance(op, BumpSequence):
             screens.append(
-                BumpSequenceOperationScreen(op_index=i, op=op, tx_source=tx.source)
+                BumpSequenceOperationScreen(
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
+                )
             )
         elif isinstance(op, ManageBuyOffer):
             screens.append(
                 ManageBuyOfferOperationScreenPage1(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
             screens.append(
                 ManageBuyOfferOperationScreenPage2(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         elif isinstance(op, PathPaymentStrictSend):
             screens.append(
                 PathPaymentStrictSendOperationScreen(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         elif isinstance(op, CreateClaimableBalance):
             screens.append(
                 CreateClaimableBalanceOperationScreenPage1(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
             screens.append(
                 CreateClaimableBalanceOperationScreenPage2(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         elif isinstance(op, ClaimClaimableBalance):
             screens.append(
                 ClaimClaimableBalanceOperationScreen(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         elif isinstance(op, BeginSponsoringFutureReserves):
             screens.append(
                 BeginSponsoringFutureReservesOperationScreen(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         elif isinstance(op, EndSponsoringFutureReserves):
             screens.append(
                 EndSponsoringFutureReservesOperationScreen(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         elif isinstance(op, RevokeSponsorship):
             screens.append(
                 RevokeSponsorshipOperationScreenPage1(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
             if op.source and op.source != tx.source:
                 screens.append(
                     RevokeSponsorshipOperationScreenPage2(
-                        op_index=i, op=op, tx_source=tx.source
+                        op_index=i, op_count=op_count, op=op, tx_source=tx.source
                     )
                 )  # source only
         elif isinstance(op, Clawback):
             screens.append(
-                ClawbackOperationScreen(op_index=i, op=op, tx_source=tx.source)
+                ClawbackOperationScreen(
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
+                )
             )
         elif isinstance(op, ClawbackClaimableBalance):
             screens.append(
                 ClawbackClaimableBalanceOperationScreen(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         elif isinstance(op, SetTrustLineFlags):
             screens.append(
                 SetTrustLineFlagsOperationScreenPage1(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
             screens.append(
                 SetTrustLineFlagsOperationScreenPage2(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
             if op.source and op.source != tx.source:
                 screens.append(
                     SetTrustLineFlagsOperationScreenPage3(
-                        op_index=i, op=op, tx_source=tx.source
+                        op_index=i, op_count=op_count, op=op, tx_source=tx.source
                     )
                 )
         elif isinstance(op, LiquidityPoolDeposit):
             screens.append(
                 LiquidityPoolDepositOperationScreenPage1(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
             screens.append(
                 LiquidityPoolDepositOperationScreenPage2(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         elif isinstance(op, LiquidityPoolWithdraw):
             screens.append(
                 LiquidityPoolWithdrawOperationScreenPage1(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
             screens.append(
                 LiquidityPoolWithdrawOperationScreenPage2(
-                    op_index=i, op=op, tx_source=tx.source
+                    op_index=i, op_count=op_count, op=op, tx_source=tx.source
                 )
             )
         else:
