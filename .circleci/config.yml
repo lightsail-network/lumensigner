@@ -49,6 +49,7 @@ jobs:
       - restore_cache:
           keys:
             - build-cache-{{ checksum "cache.rev" }}
+            - build-cache-
       - run:
           name: "build image"
           command: "cd seedsigner-os/opt && ./build.sh --${TARGET_DEVICE} --skip-repo --no-clean"
