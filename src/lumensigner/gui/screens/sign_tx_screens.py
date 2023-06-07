@@ -7,7 +7,6 @@ from typing import Sequence, Union, List, Tuple
 from decimal import Decimal
 from stellar_sdk import (
     MuxedAccount,
-    Transaction,
     TransactionEnvelope,
     FeeBumpTransactionEnvelope,
     Asset,
@@ -98,9 +97,8 @@ class GenericTxDetailsScreen(TxDetailsBaseScreen):
                 item.auto_trim_content
                 and item.content is not None
                 and len(item.content) > 23
-                and len(item.content.split()) == 1
             ):
-                content = f"{item.content[:10]}...{item.content[-10:]}"
+                content = f"{item.content[:11]}...{item.content[-11:]}"
 
             self.components.append(
                 IconTextLine(
@@ -121,7 +119,9 @@ def build_tx_info_screens(te: TransactionEnvelope) -> List[GenericTxDetailsScree
     items = []
     # Network
     network_title, network_content = format_network(te.network_passphrase)
-    items.append(Item(label=network_title, content=network_content))
+    items.append(
+        Item(label=network_title, content=network_content, auto_trim_content=False)
+    )
 
     # Max Fee
     items.append(
@@ -486,16 +486,13 @@ class ChangeTrustOperationScreen(GenericTxDetailsScreen):
         if Decimal(self.op.limit) == 0:
             op_type = "Delete Trustline"
             if isinstance(self.op.asset, LiquidityPoolAsset):
-                line = f"{self.op.asset.liquidity_pool_id}"
+                line = f"{self.op.asset.liquidity_pool_id[:6]}...{self.op.asset.liquidity_pool_id[-6:]}"
             else:
                 line = f"{format_asset(self.op.asset)}"
         else:
             op_type = "Add Trustline"
             if isinstance(self.op.asset, LiquidityPoolAsset):
-                # TODO: check if this is correct
-                line = (
-                    f"{format_number(self.op.limit)} {self.op.asset.liquidity_pool_id}"
-                )
+                line = f"{format_number(self.op.limit)} shares of {self.op.asset.liquidity_pool_id[:6]}...{self.op.asset.liquidity_pool_id[-6:]}"
             else:
                 line = f"{format_number(self.op.limit)} {format_asset(self.op.asset)}"
 
@@ -592,7 +589,7 @@ class ManageDataOperationScreen(GenericTxDetailsScreen):
             except UnicodeDecodeError:
                 title = "Data Value (base64)"
                 value = base64.b64encode(self.op.data_value).decode("utf-8")
-            items.append(Item(label=title, content=value, auto_trim_content=True))
+            items.append(Item(label=title, content=value))
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
@@ -685,7 +682,11 @@ class BeginSponsoringFutureReservesOperationScreen(GenericTxDetailsScreen):
 
     def __post_init__(self):
         items = [
-            Item(label="Operation Type", content="Begin Sponsoring Future Reserves"),
+            Item(
+                label="Operation Type",
+                content="Begin Sponsoring Future Reserves",
+                auto_trim_content=False,
+            ),
             Item(label="Sponsored ID", content=self.op.sponsored_id),
         ]
         append_op_source_to_items(items, self.op.source, self.tx_source)
@@ -703,7 +704,11 @@ class EndSponsoringFutureReservesOperationScreen(GenericTxDetailsScreen):
 
     def __post_init__(self):
         items = [
-            Item(label="Operation Type", content="End Sponsoring Future Reserves"),
+            Item(
+                label="Operation Type",
+                content="End Sponsoring Future Reserves",
+                auto_trim_content=False,
+            ),
         ]
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
@@ -720,8 +725,6 @@ class ClaimClaimableBalanceOperationScreen(GenericTxDetailsScreen):
     tx_source: MuxedAccount = None
 
     def __post_init__(self):
-        Item(label="Operation Type", content="Claim Claimable Balance"),
-        Item(label="Balance ID", content=self.op.balance_id),
         items = [
             Item(label="Operation Type", content="Claim Claimable Balance"),
             Item(label="Balance ID", content=self.op.balance_id),
@@ -751,33 +754,50 @@ class RevokeSponsorshipOperationScreenPage1(GenericTxDetailsScreen):
             else:
                 asset = format_asset(self.op.trustline.asset)
             items = [
-                Item(label="Operation Type", content="Revoke Trustline Sponsorship"),
+                Item(
+                    label="Operation Type",
+                    content="Revoke Trustline Sponsorship",
+                    auto_trim_content=False,
+                ),
                 Item(label="Account ID", content=self.op.trustline.account_id),
                 Item(label="Asset", content=asset),
             ]
         elif self.op.revoke_sponsorship_type == RevokeSponsorshipType.OFFER:
             items = [
-                Item(label="Operation Type", content="Revoke Offer Sponsorship"),
+                Item(
+                    label="Operation Type",
+                    content="Revoke Offer Sponsorship",
+                    auto_trim_content=False,
+                ),
                 Item(label="Seller ID", content=str(self.op.offer.seller_id)),
                 Item(label="Offer ID", content=str(self.op.offer.offer_id)),
             ]
         elif self.op.revoke_sponsorship_type == RevokeSponsorshipType.DATA:
             items = [
-                Item(label="Operation Type", content="Revoke Data Sponsorship"),
-                Item(label="Seller ID", content=str(self.op.offer.seller_id)),
-                Item(label="Offer ID", content=str(self.op.offer.offer_id)),
+                Item(
+                    label="Operation Type",
+                    content="Revoke Data Sponsorship",
+                    auto_trim_content=False,
+                ),
+                Item(label="Account ID", content=str(self.op.data.account_id)),
+                Item(label="Data Name", content=str(self.op.data.data_name)),
             ]
         elif self.op.revoke_sponsorship_type == RevokeSponsorshipType.CLAIMABLE_BALANCE:
             items = [
                 Item(
                     label="Operation Type",
-                    content="Revoke Claimable Balance Sponsorship",
+                    content="Revoke Claimable Balance Sponsorship,",
+                    auto_trim_content=False,
                 ),
                 Item(label="Balance ID", content=self.op.claimable_balance_id),
             ]
         elif self.op.revoke_sponsorship_type == RevokeSponsorshipType.SIGNER:
             items = [
-                Item(label="Operation Type", content="Revoke Signer Sponsorship"),
+                Item(
+                    label="Operation Type",
+                    content="Revoke Signer Sponsorship",
+                    auto_trim_content=False,
+                ),
                 Item(label="Account ID", content=self.op.signer.account_id),
                 Item(
                     label="Signer", content=self.op.signer.signer_key.encoded_signer_key
@@ -786,7 +806,9 @@ class RevokeSponsorshipOperationScreenPage1(GenericTxDetailsScreen):
         elif self.op.revoke_sponsorship_type == RevokeSponsorshipType.LIQUIDITY_POOL:
             items = [
                 Item(
-                    label="Operation Type", content="Revoke Liquidity Pool Sponsorship"
+                    label="Operation Type",
+                    content="Revoke Liquidity Pool Sponsorship",
+                    auto_trim_content=False,
                 ),
                 Item(label="Liquidity Pool ID", content=self.op.liquidity_pool_id),
             ]
@@ -825,7 +847,7 @@ class ClawbackOperationScreen(GenericTxDetailsScreen):
         items = [
             Item(
                 label="Clawback",
-                content=f"{self.op.amount} {format_asset(self.op.asset)}",
+                content=f"{format_number(self.op.amount)} {format_asset(self.op.asset)}",
             ),
             Item(label="From", content=self.op.from_.account_id),
         ]
@@ -876,20 +898,54 @@ class SetTrustLineFlagsOperationScreenPage2(GenericTxDetailsScreen):
     tx_source: MuxedAccount = None
 
     def __post_init__(self):
-        clear_flags: List[str] = [
-            f.name for f in TrustLineFlags if f in self.op.clear_flags
-        ]
-        clear_flags_str = "| ".join(clear_flags) if clear_flags else "[Not Set]"
+        clear_flags_str = "[Not Set]"
+        set_flags_str = "[Not Set]"
+        if self.op.clear_flags:
+            clear_flags: List[str] = [
+                f.name.rstrip("_FLAG")
+                for f in TrustLineFlags
+                if f in self.op.clear_flags
+            ]
+            clear_flags_str = ",".join(clear_flags)
+        if self.op.set_flags:
+            set_flags: List[str] = [
+                f.name.rstrip("_FLAG") for f in TrustLineFlags if f in self.op.set_flags
+            ]
+            set_flags_str = ",".join(set_flags)
 
-        set_flags: List[str] = [
-            f.name for f in TrustLineFlags if f in self.op.set_flags
-        ]
-        set_flags_str = "| ".join(set_flags) if set_flags else "[Not Set]"
+        break_point = 25
+        # break every 25 characters
+        set_flags_str = " ".join(
+            [
+                set_flags_str[i : i + break_point]
+                for i in range(0, len(set_flags_str), break_point)
+            ]
+        )
+        clear_flags_str = " ".join(
+            [
+                clear_flags_str[i : i + break_point]
+                for i in range(0, len(clear_flags_str), break_point)
+            ]
+        )
 
         items = [
-            Item(label="Clear Flags", content=clear_flags_str),
-            Item(label="Set Flags", content=set_flags_str),
+            Item(label="Clear Flags", content=clear_flags_str, auto_trim_content=False),
+            Item(label="Set Flags", content=set_flags_str, auto_trim_content=False),
         ]
+        self.title = f"Operation {self.op_index + 1}"
+        self.items = items
+        super().__post_init__()
+
+
+@dataclass
+class SetTrustLineFlagsOperationScreenPage3(GenericTxDetailsScreen):
+    # source only
+    op_index: int = None
+    op: SetTrustLineFlags = None
+    tx_source: MuxedAccount = None
+
+    def __post_init__(self):
+        items = []
         append_op_source_to_items(items, self.op.source, self.tx_source)
         self.title = f"Operation {self.op_index + 1}"
         self.items = items
@@ -954,7 +1010,6 @@ class LiquidityPoolWithdrawOperationScreenPage1(GenericTxDetailsScreen):
             Item(label="Amount", content=format_number(self.op.amount)),
         ]
 
-        append_op_source_to_items(items, self.op.source, self.tx_source)
         self.title = f"Operation {self.op_index + 1}"
         self.items = items
         super().__post_init__()
@@ -981,19 +1036,49 @@ class LiquidityPoolWithdrawOperationScreenPage2(GenericTxDetailsScreen):
 def build_set_options_screens(
     op_index: int, op: SetOptions, tx_source: MuxedAccount
 ) -> List[GenericTxDetailsScreen]:
+    # TODO: refactor set flags and clear flags display
+    screens = []
     items = [Item(label="Operation Type", content="Set Options")]
-    if op.inflation_dest:
-        items.append(Item(label="Inflation Destination", content=op.inflation_dest))
     if op.clear_flags:
         clear_flags: List[str] = [
             f.name for f in AuthorizationFlag if f in op.clear_flags
         ]
-
-        items.append(Item(label="Clear Flags", content="| ".join(clear_flags)))
+        clear_flags_str = ",".join(clear_flags)
+        break_point = 25
+        # break every 25 characters
+        clear_flags_str = " ".join(
+            [
+                clear_flags_str[i : i + break_point]
+                for i in range(0, len(clear_flags_str), break_point)
+            ]
+        )
+        items.append(
+            Item(label="Clear Flags", content=clear_flags_str, auto_trim_content=False)
+        )
+        screens.append(
+            GenericTxDetailsScreen(title=f"Operation {op_index + 1}", items=items)
+        )
+        items = []
     if op.set_flags:
         set_flags: List[str] = [f.name for f in AuthorizationFlag if f in op.set_flags]
-
-        items.append(Item(label="Set Flags", content="| ".join(set_flags)))
+        set_flags_str = ",".join(set_flags)
+        break_point = 25
+        # break every 25 characters
+        set_flags_str = " ".join(
+            [
+                set_flags_str[i : i + break_point]
+                for i in range(0, len(set_flags_str), break_point)
+            ]
+        )
+        items.append(
+            Item(label="Set Flags", content=set_flags_str, auto_trim_content=False)
+        )
+        screens.append(
+            GenericTxDetailsScreen(title=f"Operation {op_index + 1}", items=items)
+        )
+        items = []
+    if op.inflation_dest:
+        items.append(Item(label="Inflation Destination", content=op.inflation_dest))
     if op.master_weight is not None:
         items.append(Item(label="Master Weight", content=str(op.master_weight)))
     if op.low_threshold is not None:
@@ -1025,7 +1110,6 @@ def build_set_options_screens(
     item_size = 3
     item_count = len(items)
     screen_count = math.ceil(item_count / item_size)
-    screens = []
     for i in range(screen_count):
         screen_items = items[i * item_size : (i + 1) * item_size]
         screens.append(
@@ -1275,6 +1359,12 @@ def build_transaction_screens(
                     op_index=i, op=op, tx_source=tx.source
                 )
             )
+            if op.source and op.source != tx.source:
+                screens.append(
+                    SetTrustLineFlagsOperationScreenPage3(
+                        op_index=i, op=op, tx_source=tx.source
+                    )
+                )
         elif isinstance(op, LiquidityPoolDeposit):
             screens.append(
                 LiquidityPoolDepositOperationScreenPage1(

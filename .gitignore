@@ -1,6 +1,6 @@
 .DS_Store
 __pycache__/
-src/seedsigner.egg-info/
+src/lumensigner.egg-info/
 .nova
 .vscode
 src/lumensigner/models/settings_definition.json
@@ -8,3 +8,4 @@ src/lumensigner/models/settings_definition.json
 *.mo
 .coverage
 .venv
+dist/
