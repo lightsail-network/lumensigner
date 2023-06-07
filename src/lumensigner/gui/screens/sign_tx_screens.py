@@ -260,7 +260,10 @@ class CreateAccountOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
+        if self.op_count == 1:
+            self.title = "Send"
+        else:
+            self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
@@ -283,7 +286,10 @@ class PaymentOperationScreen(GenericTxDetailsScreen):
 
         append_op_source_to_items(items, self.op.source, self.tx_source)
 
-        self.title = f"Operation {self.op_index + 1}/{self.op_count}"
+        if self.op_count == 1:
+            self.title = "Send"
+        else:
+            self.title = f"Operation {self.op_index + 1}/{self.op_count}"
         self.items = items
         super().__post_init__()
 
