@@ -1,6 +1,6 @@
 ## Relaying internet access to the Pi Zero 1.3 over USB
 
-Note that this is an optional, alternate way to initialize your SeedSigner. The default method is to work on a separate Raspberry Pi device that has internet access. Be aware that by enabling internet access over USB you are obviously creating a link to the outside world that this project seeks to avoid.
+Note that this is an optional, alternate way to initialize your LumenSigner. The default method is to work on a separate Raspberry Pi device that has internet access. Be aware that by enabling internet access over USB you are obviously creating a link to the outside world that this project seeks to avoid.
 
 If you use this setup route, we recommend that you disable internet access over USB when these steps are complete.
 
@@ -72,8 +72,8 @@ The Pi will take a minute or so to boot up its OS. After waiting a bit, try to c
 # Manual builds:
 ssh pi@raspberrypi.local
 
-# Pre-built image:
-ssh pi@seedsigner.local
+# If you have modified the hostname, please make the corresponding changes here:
+ssh pi@lumensigner.local
 ```
 
 If you see the following prompt, type `yes` to continue:
@@ -95,7 +95,7 @@ SSH is enabled and the default password for the 'pi' user has not been changed.
 This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
 ```
 
-If someone savvy got access to your SeedSigner, they could sign into it and potentially upload malicious code. To add an extra layer of protection, change the default 'pi' user's password now by typing `passwd`:
+If someone savvy got access to your LumenSigner, they could sign into it and potentially upload malicious code. To add an extra layer of protection, change the default 'pi' user's password now by typing `passwd`:
 ```
 pi@raspberrypi:~ $ passwd
 Changing password for pi.
@@ -189,7 +189,7 @@ Eject the SD card and insert it into your Pi Zero 1.3. Plug a USB cable into you
 
 Type `lsusb` to see if your Pi Zero is properly connected. Look for `Ethernet/RNDIS Gadget`:
 
-![Static IP on the seedsigner Interface](img/usb_relay_linux_01.png)
+![Static IP on the raspberrypi Interface](img/usb_relay_linux_01.png)
 
 Set a name for your new Interface:
 ```
@@ -201,18 +201,18 @@ Now paste in the following text:
 [Match]
 Property=ID_VENDOR_ID=0525 "ID_MODEL_ID=a4a2"
 [Link]
-Name=seedsigner0
+Name=raspberrypi0
 ```
 
 To give your Host a static ip:
 ```
-nano /etc/network/interfaces.d/seedsigner
+nano /etc/network/interfaces.d/raspberrypi
 ```
 
 Now paste in the following text:
 ```
-auto seedsigner0
-iface seedsigner0 inet static
+auto raspberrypi0
+iface raspberrypi0 inet static
 address <host_ip>
 netmask 255.255.255.0
 post-up /sbin/iptables -t nat -A POSTROUTING -o <def_iface> -j MASQUERADE
@@ -220,19 +220,19 @@ post-up /sbin/iptables -t nat -A POSTROUTING -o <def_iface> -j MASQUERADE
 
 Reboot your computer.
 
-To see if everything is set up correctly, type `ifconfig` and look for the `seedsigner0` interface. It should have the <host_ip> assigned to it. 
+To see if everything is set up correctly, type `ifconfig` and look for the `raspberrypi0` interface. It should have the <host_ip> assigned to it. 
 
-![Static IP on the seedsigner Interface](img/usb_relay_linux_02.png)
+![Static IP on the raspberrypi Interface](img/usb_relay_linux_02.png)
 
 Continue by configuring your host computer to [share internet access](#linux) with your Pi Zero.
 
 
 ## Complete the setup
-Return to the main [README](../README.md) and complete the setup steps. But remember to come back here and disable internet access over USB on your SeedSigner.
+Return to the main [README](../README.md) and complete the setup steps. But remember to come back here and disable internet access over USB on your LumenSigner.
 
 
 ## Disable internet access
-Power down the SeedSigner and remove the SD card. Put the SD card back into your computer and use a terminal to navigate to the `boot` drive (same process as above).
+Power down the LumenSigner and remove the SD card. Put the SD card back into your computer and use a terminal to navigate to the `boot` drive (same process as above).
 
 Edit `config.txt`:
 ```
@@ -257,7 +257,7 @@ notepad cmdline.txt
 
 Delete `modules-load=dwc2,g_ether`. Exit and save changes (CTRL-X, then "y" in nano).
 
-Eject the SD card and put it back in the SeedSigner. Connect the SeedSigner to your computer with a USB cable. It should no longer show up as a "RNDIS/Ethernet Gadget".
+Eject the SD card and put it back in the LumenSigner. Connect the LumenSigner to your computer with a USB cable. It should no longer show up as a "RNDIS/Ethernet Gadget".
 
 SSH into the pi and try to `ping 8.8.8.8`. It should fail with no responses.
 
@@ -270,4 +270,4 @@ rm ssh
 del ssh
 ```
 
-You're now good to go with a SeedSigner that is back to being fully air-gapped!
+You're now good to go with a LumenSigner that is back to being fully air-gapped!
