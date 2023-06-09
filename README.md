@@ -40,6 +40,10 @@ If you have specific questions about the project, our [Discord server](https://d
 * Optimized seed word entry interface
 * Responsive, event-driven user interface
 
+### Compatible software:
+* [Stellar Account Viewer (LumenSigner fork)](https://accountviewer.lumensigner.com/)
+* [xBull Wallet](https://xbull.app/) (Work in progress)
+
 ---------------
 
 # Shopping List
