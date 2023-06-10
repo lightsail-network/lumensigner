@@ -60,8 +60,8 @@ class TxDetailsBaseScreen(BaseTopNavScreen):
                     self.top_nav.render_buttons()
 
                 elif (
-                        self.top_nav.is_selected
-                        and user_input in HardwareButtonsConstants.KEYS__ANYCLICK
+                    self.top_nav.is_selected
+                    and user_input in HardwareButtonsConstants.KEYS__ANYCLICK
                 ):
                     return self.top_nav.selected_button
 
@@ -86,16 +86,16 @@ class GenericTxDetailsScreen(TxDetailsBaseScreen):
                 screen_y = self.top_nav.height + GUIConstants.COMPONENT_PADDING
             else:
                 screen_y = (
-                        self.components[-1].screen_y
-                        + self.components[-1].height
-                        + GUIConstants.COMPONENT_PADDING * 2
+                    self.components[-1].screen_y
+                    + self.components[-1].height
+                    + GUIConstants.COMPONENT_PADDING * 2
                 )
 
             content = item.content
             if (
-                    item.auto_trim_content
-                    and item.content is not None
-                    and len(item.content) > 23
+                item.auto_trim_content
+                and item.content is not None
+                and len(item.content) > 23
             ):
                 content = f"{item.content[:11]}...{item.content[-11:]}"
 
@@ -233,7 +233,7 @@ def build_tx_info_screens(te: TransactionEnvelope) -> List[GenericTxDetailsScree
     screen_count = math.ceil(item_count / item_size)
     screens = []
     for i in range(screen_count):
-        screen_items = items[i * item_size: (i + 1) * item_size]
+        screen_items = items[i * item_size : (i + 1) * item_size]
         screens.append(
             GenericTxDetailsScreen(
                 title=f"Tx Info {i + 1}/{screen_count}", items=screen_items
@@ -950,13 +950,13 @@ class SetTrustLineFlagsOperationScreenPage2(GenericTxDetailsScreen):
         # break every 25 characters
         set_flags_str = " ".join(
             [
-                set_flags_str[i: i + break_point]
+                set_flags_str[i : i + break_point]
                 for i in range(0, len(set_flags_str), break_point)
             ]
         )
         clear_flags_str = " ".join(
             [
-                clear_flags_str[i: i + break_point]
+                clear_flags_str[i : i + break_point]
                 for i in range(0, len(clear_flags_str), break_point)
             ]
         )
@@ -1072,7 +1072,7 @@ class LiquidityPoolWithdrawOperationScreenPage2(GenericTxDetailsScreen):
 
 
 def build_set_options_screens(
-        op_index: int, op_count: int, op: SetOptions, tx_source: MuxedAccount
+    op_index: int, op_count: int, op: SetOptions, tx_source: MuxedAccount
 ) -> List[GenericTxDetailsScreen]:
     # TODO: refactor set flags and clear flags display
     screens = []
@@ -1086,7 +1086,7 @@ def build_set_options_screens(
         # break every 25 characters
         clear_flags_str = " ".join(
             [
-                clear_flags_str[i: i + break_point]
+                clear_flags_str[i : i + break_point]
                 for i in range(0, len(clear_flags_str), break_point)
             ]
         )
@@ -1104,7 +1104,7 @@ def build_set_options_screens(
         # break every 25 characters
         set_flags_str = " ".join(
             [
-                set_flags_str[i: i + break_point]
+                set_flags_str[i : i + break_point]
                 for i in range(0, len(set_flags_str), break_point)
             ]
         )
@@ -1149,7 +1149,7 @@ def build_set_options_screens(
     item_count = len(items)
     screen_count = math.ceil(item_count / item_size)
     for i in range(screen_count):
-        screen_items = items[i * item_size: (i + 1) * item_size]
+        screen_items = items[i * item_size : (i + 1) * item_size]
         screens.append(
             GenericTxDetailsScreen(
                 title=f"Operation {op_index + 1}/{op_count}", items=screen_items
@@ -1159,7 +1159,7 @@ def build_set_options_screens(
 
 
 def append_op_source_to_items(
-        items: List[Item], op_source: MuxedAccount, tx_source: MuxedAccount
+    items: List[Item], op_source: MuxedAccount, tx_source: MuxedAccount
 ):
     if op_source and op_source != tx_source:
         items.append(
@@ -1181,7 +1181,7 @@ class SignTxShowAddressScreen(ButtonListScreen):
         # break every 14 characters
         address_with_break = " ".join(
             [
-                self.address[i: i + break_point]
+                self.address[i : i + break_point]
                 for i in range(0, len(self.address), break_point)
             ]
         )
@@ -1219,7 +1219,7 @@ class FeeBumpTransactionScreen(GenericTxDetailsScreen):
         tx = self.te.transaction
         network_title, network_content = format_network(self.te.network_passphrase)
         max_fee = tx.base_fee * (
-                len(tx.inner_transaction_envelope.transaction.operations) + 1
+            len(tx.inner_transaction_envelope.transaction.operations) + 1
         )
         items = [
             Item(label=network_title, content=network_content),
@@ -1239,7 +1239,7 @@ class FeeBumpTransactionScreen(GenericTxDetailsScreen):
 
 
 def build_transaction_screens(
-        te: Union[TransactionEnvelope, FeeBumpTransactionEnvelope]
+    te: Union[TransactionEnvelope, FeeBumpTransactionEnvelope]
 ) -> List[GenericTxDetailsScreen]:
     if isinstance(te, FeeBumpTransactionEnvelope):
         return [FeeBumpTransactionScreen(te=te)]
