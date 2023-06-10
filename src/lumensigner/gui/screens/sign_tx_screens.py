@@ -1,5 +1,4 @@
 import base64
-import locale
 import math
 from dataclasses import dataclass
 from datetime import datetime
@@ -1469,16 +1468,16 @@ def format_network(network_passphrase: str) -> Tuple[str, str]:
 
 
 def format_number(num_str: str) -> str:
-    try:
-        num = float(num_str)
-    except ValueError:
-        return num_str
-
-    locale.setlocale(locale.LC_ALL, "")
-    int_part = locale.format_string("%d", int(num), grouping=True)
+    int_part = num_str.split(".", 1)[0]
+    if len(int_part) > 3:
+        segments = []
+        while len(int_part) > 0:
+            segment = int_part[-3:]
+            segments.insert(0, segment)
+            int_part = int_part[:-3]
+        int_part = ",".join(segments)
     dec_part = ""
     if "." in num_str:
         dec_part = num_str.split(".", 1)[1]
         dec_part = "." + dec_part
-
     return int_part + dec_part
