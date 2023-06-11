@@ -1015,7 +1015,7 @@ class ResetScreen(BaseTopNavScreen):
 
         self.components.append(
             TextArea(
-                text="SeedSigner is restarting.\n\nAll in-memory data will be wiped.",
+                text="LumenSigner is restarting.\n\nAll in-memory data will be wiped.",
                 screen_y=self.top_nav.height,
                 height=self.canvas_height - self.top_nav.height,
             )

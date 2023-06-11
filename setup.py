@@ -18,7 +18,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
-        "Development Status :: 4 - Beta"
+        "Development Status :: 4 - Beta",
     ],
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
