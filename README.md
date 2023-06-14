@@ -38,7 +38,7 @@ If you have specific questions about the project, our [Discord server](https://d
 
 ### Compatible software:
 * [Stellar Account Viewer (LumenSigner fork)](https://accountviewer.lumensigner.com/)
-* [xBull Wallet](https://xbull.app/) (Work in progress)
+* [xBull Wallet](https://xbull.app/)
 
 ---------------
 
