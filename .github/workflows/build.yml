@@ -71,6 +71,7 @@ jobs:
 
       - name: save build cache
         id: build-cache-save
+        if: steps.build-cache-restore.outputs.cache-hit != 'true'
         uses: actions/cache/save@v3
         with:
           path: |
