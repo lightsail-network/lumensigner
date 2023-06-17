@@ -654,14 +654,12 @@ class ToolsAddressExplorerAddressDetailsView(View):
     def run(self):
         ADDRESS_QRCODE = "Address QRCode"
         CONNECT_QRCODE = "Connect QRCode"
-        button_data = [ADDRESS_QRCODE, CONNECT_QRCODE]
+        button_data = [CONNECT_QRCODE, ADDRESS_QRCODE]
         selected_menu_num = ToolsAddressDetailsScreen(
             address=self.address,
             derivation_index_id=self.index,
             button_data=button_data,
         ).display()
-
-        print("selected_menu_num: ", selected_menu_num)
 
         if selected_menu_num == RET_CODE__BACK_BUTTON:
             # Exiting/Cancelling the QR display screen always returns to the list
@@ -683,7 +681,7 @@ class ToolsAddressExplorerAddressDetailsView(View):
                     address=self.address,
                     start_index=self.start_index,
                     parent_initial_scroll=self.parent_initial_scroll,
-                    is_connect=selected_menu_num == 1,
+                    is_connect=selected_menu_num == 0,
                 ),
             )
 
